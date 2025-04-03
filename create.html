@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeeAI - Create Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6e48aa;
+            --primary-dark: #5d3a99;
+            --secondary-color: #f7f7f8;
+            --text-color: #333;
+            --text-dark: #ececf1;
+            --input-bg: #ffffff;
+            --input-bg-dark: #40414f;
+            --border-color: #e5e5e5;
+            --border-dark: #4d4d4f;
+            --icon-color: #666;
+            --icon-dark: #acacbe;
+            --danger-color: #ff6b6b;
+            --danger-dark: #ff5252;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f7;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1e;
+            color: var(--text-dark);
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .signup-container {
+            background-color: #2d2d31;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .dark-mode .logo-icon {
+            color: var(--primary-dark);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .dark-mode .logo-text {
+            color: var(--primary-dark);
+        }
+
+        .logo-subtext {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .dark-mode .logo-subtext {
+            color: #9e9e9e;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--icon-color);
+        }
+
+        .dark-mode .input-wrapper i {
+            color: var(--icon-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 16px;
+            outline: none;
+        }
+
+        .dark-mode .form-control {
+            border-color: var(--border-dark);
+            background-color: var(--input-bg-dark);
+            color: var(--text-dark);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(110, 72, 170, 0.2);
+        }
+
+        .dark-mode .form-control:focus {
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 2px rgba(93, 58, 153, 0.3);
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            height: 4px;
+            background-color: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .dark-mode .password-strength {
+            background-color: #333;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--danger-color);
+            transition: width 0.3s, background-color 0.3s;
+        }
+
+        .dark-mode .password-strength-bar {
+            background-color: var(--danger-dark);
+        }
+
+        .password-strength-text {
+            font-size: 12px;
+            margin-top: 3px;
+            color: #666;
+        }
+
+        .dark-mode .password-strength-text {
+            color: #9e9e9e;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .dark-mode .btn:disabled {
+            background-color: #555555;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .dark-mode .divider {
+            color: #9e9e9e;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 0 10px;
+        }
+
+        .dark-mode .divider::before,
+        .dark-mode .divider::after {
+            background-color: var(--border-dark);
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dark-mode .social-btn {
+            border-color: var(--border-dark);
+        }
+
+        .social-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .social-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .social-btn i {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        .google-btn {
+            color: #db4437;
+        }
+
+        .github-btn {
+            color: #333;
+        }
+
+        .dark-mode .github-btn {
+            color: #f5f5f5;
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        .footer-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .dark-mode .footer-links a {
+            color: var(--primary-dark);
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background-color: #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .dark-mode .theme-toggle {
+            background-color: #555;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .dark-mode .theme-toggle::before {
+            transform: translateX(20px);
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .terms-checkbox input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .terms-text {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .dark-mode .terms-text {
+            color: #9e9e9e;
+        }
+
+        .terms-text a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .dark-mode .terms-text a {
+            color: var(--primary-dark);
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .signup-container {
+                padding: 30px 20px;
+                margin: 0 15px;
+            }
+            
+            .social-login {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle-container">
+        <button class="theme-toggle" id="dark-mode-toggle"></button>
+    </div>
+
+    <div class="signup-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="logo-text">DeeAI</div>
+            <div class="logo-subtext">Create your account</div>
+        </div>
+
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+                </div>
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="password-strength-bar"></div>
+                </div>
+                <div class="password-strength-text" id="password-strength-text">Password strength</div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirm-password" class="form-control" placeholder="Confirm your password" required>
+                </div>
+            </div>
+
+            <div class="terms-checkbox">
+                <input type="checkbox" id="terms" required>
+                <label for="terms" class="terms-text">
+                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                </label>
+            </div>
+
+            <button type="submit" class="btn" id="signup-btn">Create Account</button>
+
+            <div class="footer-links">
+                Already have an account? <a href="login.html">Log in</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const signupForm = document.getElementById('signup-form');
+            const signupBtn = document.getElementById('signup-btn');
+            const passwordInput = document.getElementById('password');
+            const passwordStrengthBar = document.getElementById('password-strength-bar');
+            const passwordStrengthText = document.getElementById('password-strength-text');
+            
+            let isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            // Initialize
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Event Listeners
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+            
+            passwordInput.addEventListener('input', updatePasswordStrength);
+            
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate passwords match
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                
+                signupBtn.disabled = true;
+                signupBtn.textContent = 'Creating account...';
+                
+                // Simulate signup process
+                setTimeout(() => {
+                    // In a real app, you would create the account here
+                    // Then redirect to the chat page or verification page
+                    window.location.href = 'chat.html'; // Change to your desired redirect page
+                }, 1500);
+            });
+            
+            function toggleDarkMode() {
+                isDarkMode = !isDarkMode;
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode);
+            }
+            
+            function updatePasswordStrength() {
+                const password = passwordInput.value;
+                let strength = 0;
+                let text = '';
+                let color = '';
+                
+                if (password.length > 0) strength += 1;
+                if (password.length >= 8) strength += 1;
+                if (/[A-Z]/.test(password)) strength += 1;
+                if (/[0-9]/.test(password)) strength += 1;
+                if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+                
+                switch(strength) {
+                    case 0:
+                        text = '';
+                        color = 'transparent';
+                        break;
+                    case 1:
+                        text = 'Very Weak';
+                        color = '#ff6b6b';
+                        break;
+                    case 2:
+                        text = 'Weak';
+                        color = '#ff9e4f';
+                        break;
+                    case 3:
+                        text = 'Moderate';
+                        color = '#f9ca54';
+                        break;
+                    case 4:
+                        text = 'Strong';
+                        color = '#51cf66';
+                        break;
+                    case 5:
+                        text = 'Very Strong';
+                        color = '#2b8a3e';
+                        break;
+                }
+                
+                passwordStrengthBar.style.width = (strength * 20) + '%';
+                passwordStrengthBar.style.backgroundColor = color;
+                passwordStrengthText.textContent = text;
+                passwordStrengthText.style.color = strength > 0 ? color : '#666';
+                
+                if (isDarkMode && strength > 0) {
+                    passwordStrengthText.style.color = color;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

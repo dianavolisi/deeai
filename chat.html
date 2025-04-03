@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeeAI - Advanced AI Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>DeeAI</span>
+            </div>
+            <button class="action-btn" id="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <button class="new-chat-btn" id="new-chat-btn">
+            <i class="fas fa-plus"></i>
+            New chat
+        </button>
+        <div class="chat-history" id="chat-history">
+            <!-- Chat history items will be added here dynamically -->
+        </div>
+        <div class="sidebar-footer">
+            <div class="user-profile" id="user-profile">
+                <div class="user-avatar">U</div>
+                <div class="user-name">User</div>
+                <button class="action-btn">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Chat Content -->
+    <div class="main-content" id="main-content">
+        <div class="chat-header">
+            <button class="action-btn" id="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="chat-title" id="chat-title">New Chat</div>
+            <div class="header-actions">
+                <button class="action-btn" id="settings-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="action-btn" id="dark-mode-toggle">
+                    <div class="theme-toggle"></div>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chat-container">
+            <!-- Welcome message and suggestions -->
+            <div class="message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-text">
+                        <p>Hello! I'm <strong>DeeAI</strong>, your advanced AI assistant. I can help with a wide range of tasks including:</p>
+                        <ul>
+                            <li>Answering questions and explaining concepts</li>
+                            <li>Generating creative content like stories and poems</li>
+                            <li>Analyzing and summarizing documents</li>
+                            <li>Helping with coding and technical problems</li>
+                            <li>Providing recommendations and advice</li>
+                        </ul>
+                        <p>How can I assist you today?</p>
+                    </div>
+                    <div class="message-actions">
+                        <button class="message-action"><i class="far fa-copy"></i> Copy</button>
+                        <button class="message-action"><i class="far fa-thumbs-up"></i></button>
+                        <button class="message-action"><i class="far fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggestions -->
+            <div class="suggestions">
+                <div class="suggestion-card" data-prompt="Explain quantum computing in simple terms">
+                    <div class="suggestion-title">
+                        <i class="fas fa-atom"></i>
+                        Quantum Computing
+                    </div>
+                    <div class="suggestion-desc">
+                        Explain quantum computing in simple terms suitable for a beginner
+                    </div>
+                </div>
+                <div class="suggestion-card" data-prompt="Suggest team building activities for a remote team">
+                    <div class="suggestion-title">
+                        <i class="fas fa-users"></i>
+                        Team Building
+                    </div>
+                    <div class="suggestion-desc">
+                        Suggest fun virtual team building activities for remote teams
+                    </div>
+                </div>
+                <div class="suggestion-card" data-prompt="Write a professional resignation letter">
+                    <div class="suggestion-title">
+                        <i class="fas fa-envelope"></i>
+                        Resignation Letter
+                    </div>
+                    <div class="suggestion-desc">
+                        Help me draft a professional resignation letter with two weeks notice
+                    </div>
+                </div>
+                <div class="suggestion-card" data-prompt="Create a 4-week workout plan for beginners">
+                    <div class="suggestion-title">
+                        <i class="fas fa-dumbbell"></i>
+                        Workout Plan
+                    </div>
+                    <div class="suggestion-desc">
+                        Design a 4-week beginner workout plan focusing on full-body fitness
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat messages will be added here dynamically -->
+        </div>
+
+        <!-- File preview container -->
+        <div class="file-preview-container" id="file-preview-container"></div>
+
+        <!-- Input area -->
+        <div class="input-container">
+            <div class="input-area">
+                <textarea id="user-input" placeholder="Message DeeAI..." rows="1" autocomplete="off"></textarea>
+                <div class="input-actions">
+                    <button class="input-btn" id="attach-btn" title="Attach files">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <input type="file" id="file-input" class="file-input" multiple>
+                    <button class="send-btn" id="send-btn" title="Send message" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page (hidden by default) -->
+    <div class="profile-page" id="profile-page">
+        <button class="back-btn" id="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Chat
+        </button>
+        
+        <div class="profile-header">
+            <div class="profile-avatar">U</div>
+            <div class="profile-info">
+                <h2>User Profile</h2>
+                <p>premium@deeai.com</p>
+                <p>Member since April 3rd 2025</p>
+            </div>
+        </div>
+        
+        <div class="profile-stats">
+            <div class="stat-card">
+                <div class="stat-value">142</div>
+                <div class="stat-label">Chats</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3,568</div>
+                <div class="stat-label">Messages</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">Premium</div>
+                <div class="stat-label">Plan</div>
+            </div>
+        </div>
+        
+        <div class="profile-section">
+            <h3>Account Settings</h3>
+            <div class="setting-item">
+                <label>Email</label>
+                <input type="email" value="premium@deeai.com" disabled>
+            </div>
+            <div class="setting-item">
+                <label>Password</label>
+                <input type="password" value="********">
+            </div>
+            <div class="setting-item">
+                <label>Theme</label>
+                <select id="profile-theme">
+                    <option value="system">System Default</option>
+                    <option value="light">Light Mode</option>
+                    <option value="dark">Dark Mode</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="profile-section">
+            <h3>DeeAI Preferences</h3>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" checked>
+                    Enable creative mode
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" checked>
+                    Show suggestions
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox">
+                    Enable web search
+                </label>
+            </div>
+        </div>
+        
+        <div class="profile-section">
+            <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Log Out
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menu-btn');
+            const closeSidebarBtn = document.getElementById('close-sidebar');
+            const newChatBtn = document.getElementById('new-chat-btn');
+            const chatContainer = document.getElementById('chat-container');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            const attachBtn = document.getElementById('attach-btn');
+            const fileInput = document.getElementById('file-input');
+            const filePreviewContainer = document.getElementById('file-preview-container');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const chatHistory = document.getElementById('chat-history');
+            const chatTitle = document.getElementById('chat-title');
+            const suggestionCards = document.querySelectorAll('.suggestion-card');
+            const userProfile = document.getElementById('user-profile');
+            const profilePage = document.getElementById('profile-page');
+            const mainContent = document.getElementById('main-content');
+            const backBtn = document.getElementById('back-btn');
+            
+            // State
+            let currentChatId = generateChatId();
+            let chats = [];
+            let attachedFiles = [];
+            let isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            // Initialize
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+            }
+            loadChatHistory();
+            updateChatTitle();
+            
+            // Event Listeners
+            menuBtn.addEventListener('click', toggleSidebar);
+            closeSidebarBtn.addEventListener('click', toggleSidebar);
+            newChatBtn.addEventListener('click', startNewChat);
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+            userProfile.addEventListener('click', showProfilePage);
+            backBtn.addEventListener('click', showChatPage);
+            
+            userInput.addEventListener('input', function() {
+                sendBtn.disabled = userInput.value.trim() === '';
+                adjustTextareaHeight();
+            });
+            
+            userInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    if (!sendBtn.disabled) {
+                        sendMessage();
+                    }
+                }
+            });
+            
+            sendBtn.addEventListener('click', sendMessage);
+            attachBtn.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', function(e) {
+                Array.from(e.target.files).forEach(file => {
+                    attachedFiles.push(file);
+                    displayFilePreview(file);
+                });
+                fileInput.value = ''; // Reset to allow selecting same file again
+            });
+            
+            suggestionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    userInput.value = this.getAttribute('data-prompt');
+                    userInput.focus();
+                    sendBtn.disabled = false;
+                });
+            });
+            
+            // Functions
+            function toggleSidebar() {
+                sidebar.classList.toggle('open');
+            }
+            
+            function toggleDarkMode() {
+                isDarkMode = !isDarkMode;
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode);
+            }
+            
+            function showProfilePage() {
+                mainContent.style.display = 'none';
+                profilePage.style.display = 'block';
+                // Set theme selector to current mode
+                document.getElementById('profile-theme').value = isDarkMode ? 'dark' : 'light';
+            }
+            
+            function showChatPage() {
+                profilePage.style.display = 'none';
+                mainContent.style.display = 'flex';
+            }
+            
+            function adjustTextareaHeight() {
+                userInput.style.height = 'auto';
+                userInput.style.height = (userInput.scrollHeight) + 'px';
+            }
+            
+            function generateChatId() {
+                return Date.now().toString();
+            }
+            
+            function startNewChat() {
+                if (userInput.value.trim() !== '' || attachedFiles.length > 0) {
+                    // Save current chat if it has content
+                    saveCurrentChat();
+                }
+                
+                currentChatId = generateChatId();
+                chatContainer.querySelectorAll('.message:not(.bot-message)').forEach(el => el.remove());
+                filePreviewContainer.innerHTML = '';
+                userInput.value = '';
+                attachedFiles = [];
+                sendBtn.disabled = true;
+                updateChatTitle();
+                addWelcomeMessage();
+            }
+            
+            function saveCurrentChat() {
+                // Get all user messages in current chat
+                const userMessages = Array.from(chatContainer.querySelectorAll('.user-message'))
+                    .map(msg => msg.querySelector('.message-text').textContent);
+                
+                if (userMessages.length > 0) {
+                    // Create or update chat in history
+                    const existingChatIndex = chats.findIndex(chat => chat.id === currentChatId);
+                    const chatTitle = userMessages[0].length > 30 
+                        ? userMessages[0].substring(0, 30) + '...' 
+                        : userMessages[0];
+                    
+                    if (existingChatIndex !== -1) {
+                        chats[existingChatIndex].title = chatTitle;
+                        chats[existingChatIndex].lastMessage = userMessages[userMessages.length - 1];
+                        chats[existingChatIndex].updatedAt = new Date().toISOString();
+                    } else {
+                        chats.push({
+                            id: currentChatId,
+                            title: chatTitle,
+                            lastMessage: userMessages[userMessages.length - 1],
+                            createdAt: new Date().toISOString(),
+                            updatedAt: new Date().toISOString()
+                        });
+                    }
+                    
+                    saveChatHistory();
+                    renderChatHistory();
+                }
+            }
+            
+            function loadChatHistory() {
+                const savedChats = localStorage.getItem('chatHistory');
+                if (savedChats) {
+                    chats = JSON.parse(savedChats);
+                    renderChatHistory();
+                }
+            }
+            
+            function saveChatHistory() {
+                localStorage.setItem('chatHistory', JSON.stringify(chats));
+            }
+            
+            function renderChatHistory() {
+                chatHistory.innerHTML = '';
+                
+                // Sort chats by updatedAt (newest first)
+                const sortedChats = [...chats].sort((a, b) => 
+                    new Date(b.updatedAt) - new Date(a.updatedAt));
+                
+                sortedChats.forEach(chat => {
+                    const chatItem = document.createElement('div');
+                    chatItem.className = 'chat-item';
+                    if (chat.id === currentChatId) {
+                        chatItem.classList.add('active');
+                    }
+                    
+                    chatItem.innerHTML = `
+                        <i class="far fa-comment"></i>
+                        <span>${chat.title}</span>
+                        <span class="delete-chat" data-chat-id="${chat.id}">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    `;
+                    
+                    chatItem.addEventListener('click', (e) => {
+                        // Don't load chat if delete button was clicked
+                        if (!e.target.closest('.delete-chat')) {
+                            loadChat(chat.id);
+                        }
+                    });
+                    
+                    // Add delete functionality
+                    const deleteBtn = chatItem.querySelector('.delete-chat');
+                    deleteBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        deleteChat(chat.id);
+                    });
+                    
+                    chatHistory.appendChild(chatItem);
+                });
+            }
+            
+            function deleteChat(chatId) {
+                if (confirm('Are you sure you want to delete this chat?')) {
+                    chats = chats.filter(chat => chat.id !== chatId);
+                    saveChatHistory();
+                    
+                    // If we're currently viewing the deleted chat, start a new one
+                    if (chatId === currentChatId) {
+                        startNewChat();
+                    }
+                    
+                    renderChatHistory();
+                }
+            }
+            
+            function loadChat(chatId) {
+                // In a real app, you would load the full chat history from storage/API
+                // For this demo, we'll just simulate loading the first message
+                const chat = chats.find(c => c.id === chatId);
+                if (chat) {
+                    currentChatId = chatId;
+                    chatContainer.innerHTML = '';
+                    filePreviewContainer.innerHTML = '';
+                    userInput.value = '';
+                    attachedFiles = [];
+                    sendBtn.disabled = true;
+                    
+                    // Add welcome message
+                    addWelcomeMessage();
+                    
+                    // Add the first message as example
+                    addMessageToChat(chat.title, 'user');
+                    
+                    // Simulate bot response
+                    setTimeout(() => {
+                        addMessageToChat(
+                            `You previously asked about "${chat.title}". How can I help you with this topic now?`,
+                            'bot'
+                        );
+                    }, 500);
+                    
+                    updateChatTitle(chat.title);
+                    renderChatHistory();
+                }
+            }
+            
+            function updateChatTitle(title) {
+                if (title) {
+                    chatTitle.textContent = title.length > 30 
+                        ? title.substring(0, 30) + '...' 
+                        : title;
+                } else {
+                    chatTitle.textContent = 'New Chat';
+                }
+            }
+            
+            function addWelcomeMessage() {
+                const welcomeMsg = document.querySelector('.bot-message');
+                if (!welcomeMsg) {
+                    const welcomeDiv = document.createElement('div');
+                    welcomeDiv.className = 'message bot-message';
+                    welcomeDiv.innerHTML = `
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                <p>Hello! I'm <strong>DeeAI</strong>, your advanced AI assistant. I can help with a wide range of tasks including:</p>
+                                <ul>
+                                    <li>Answering questions and explaining concepts</li>
+                                    <li>Generating creative content like stories and poems</li>
+                                    <li>Analyzing and summarizing documents</li>
+                                    <li>Helping with coding and technical problems</li>
+                                    <li>Providing recommendations and advice</li>
+                                </ul>
+                                <p>How can I assist you today?</p>
+                            </div>
+                            <div class="message-actions">
+                                <button class="message-action"><i class="far fa-copy"></i> Copy</button>
+                                <button class="message-action"><i class="far fa-thumbs-up"></i></button>
+                                <button class="message-action"><i class="far fa-thumbs-down"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    chatContainer.insertBefore(welcomeDiv, chatContainer.firstChild);
+                }
+            }
+            
+            function displayFilePreview(file) {
+                const preview = document.createElement('div');
+                preview.className = 'file-preview';
+                preview.innerHTML = `
+                    <i class="fas fa-file-alt file-icon"></i>
+                    <span class="file-name">${file.name}</span>
+                    <span class="remove-file" data-file="${file.name}">
+                        <i class="fas fa-times"></i>
+                    </span>
+                `;
+                
+                filePreviewContainer.appendChild(preview);
+                
+                // Add event listener to remove button
+                preview.querySelector('.remove-file').addEventListener('click', function() {
+                    const fileName = this.getAttribute('data-file');
+                    attachedFiles = attachedFiles.filter(f => f.name !== fileName);
+                    preview.remove();
+                });
+            }
+            
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (message === '' && attachedFiles.length === 0) return;
+                
+                // Add user message to chat
+                addMessageToChat(message, 'user');
+                
+                // Clear input
+                userInput.value = '';
+                userInput.style.height = 'auto';
+                sendBtn.disabled = true;
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate bot response after a delay
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    
+                    // Generate response based on input
+                    let response;
+                    if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
+                        response = "Hello there! I'm DeeAI. How can I assist you today?";
+                    } else if (message.toLowerCase().includes('how are you')) {
+                        response = "I'm just a computer program, so I don't have feelings, but I'm functioning optimally! How can I help you?";
+                    } else if (attachedFiles.length > 0) {
+                        const fileNames = attachedFiles.map(f => f.name).join(', ');
+                        response = `I've received your message along with these files: ${fileNames}. I can analyze text documents, images, and other file types to assist you. What would you like me to do with them?`;
+                        attachedFiles = []; // Clear attached files after processing
+                        filePreviewContainer.innerHTML = '';
+                    } else if (message.toLowerCase().includes('quantum')) {
+                        response = `Quantum computing is an area of computing focused on developing computer technologies based on the principles of quantum theory. Here are key points:\n\n` +
+                        `1. <strong>Qubits:</strong> Unlike classical bits (0 or 1), qubits can exist in superposition (both 0 and 1 simultaneously).\n` +
+                        `2. <strong>Entanglement:</strong> Qubits can be entangled, meaning the state of one affects another, enabling powerful computations.\n` +
+                        `3. <strong>Potential:</strong> Quantum computers could solve certain problems much faster than classical computers (e.g., factorization, optimization).\n\n` +
+                        `Would you like me to explain any specific aspect in more detail?`;
+                    } else if (message.toLowerCase().includes('code')) {
+                        response = "Here's an example of Python code:\n\n" +
+                        "```python\n" +
+                        "def fibonacci(n):\n" +
+                        "    if n <= 1:\n" +
+                        "        return n\n" +
+                        "    else:\n" +
+                        "        return fibonacci(n-1) + fibonacci(n-2)\n\n" +
+                        "# Print first 10 Fibonacci numbers\n" +
+                        "for i in range(10):\n" +
+                        "    print(fibonacci(i))\n" +
+                        "```\n\n" +
+                        "This recursive function calculates Fibonacci numbers. Would you like me to explain how it works or help with any other coding questions?";
+                    } else {
+                        response = "I understand you're asking about \"" + message + "\". As DeeAI, I can provide information, analysis, or creative responses related to this topic. What specific aspect would you like me to focus on?";
+                    }
+                    
+                    addMessageToChat(response, 'bot');
+                    
+                    // Save chat after first message
+                    if (chats.findIndex(chat => chat.id === currentChatId) === -1) {
+                        saveCurrentChat();
+                    }
+                }, 1500);
+            }
+            
+            function addMessageToChat(message, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                
+                const avatar = sender === 'user' ? 'U' : '<i class="fas fa-robot"></i>';
+                const avatarClass = sender === 'user' ? 'user-avatar' : '';
+                
+                messageDiv.innerHTML = `
+                    <div class="message-avatar ${avatarClass}">${avatar}</div>
+                    <div class="message-content">
+                        <div class="message-text">${formatMessage(message)}</div>
+                        <div class="message-actions">
+                            <button class="message-action"><i class="far fa-copy"></i> Copy</button>
+                            <button class="message-action"><i class="far fa-thumbs-up"></i></button>
+                            <button class="message-action"><i class="far fa-thumbs-down"></i></button>
+                        </div>
+                    </div>
+                `;
+                
+                // Add copy functionality
+                messageDiv.querySelector('.message-action').addEventListener('click', function() {
+                    navigator.clipboard.writeText(message);
+                    const originalIcon = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        this.innerHTML = originalIcon;
+                    }, 2000);
+                });
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            function formatMessage(text) {
+                // Simple markdown formatting
+                // Bold: **text**
+                text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                // Italics: *text*
+                text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                // Code blocks: ```language\ncode\n```
+                text = text.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+                // Inline code: `code`
+                text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+                // Links: [text](url)
+                text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+                // Newlines to paragraphs
+                text = text.replace(/\n\n/g, '</p><p>');
+                // Single newlines to line breaks
+                text = text.replace(/\n(?!\n)/g, '<br>');
+                
+                return `<p>${text}</p>`;
+            }
+            
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'typing-indicator';
+                typingDiv.id = 'typing-indicator';
+                typingDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                `;
+                chatContainer.appendChild(typingDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+            
+            // Initialize textarea height
+            adjustTextareaHeight();
+        });
+    </script>
+</body>
+</html>
